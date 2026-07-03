@@ -25,11 +25,24 @@ public class Riposo implements Attivita {
         return "Un bel sonno ristoratore. Ripristina molta energia per affrontare il prossimo turno.";
     }
 
+    /**
+     * Controlla se lo studente può riposare in questo turno.
+     * Poiché dormire non costa soldi e si può fare in qualsiasi condizione fisica,
+     * questo metodo restituisce sempre vero.
+     *
+     * * @param studente Lo studente che intende riposare.
+     * @return Sempre {@code true}, perché l'azione è sempre garantita.
+     */
     @Override
     public boolean isEseguibile(Studente studente) {
         return true;
     }
 
+    /**
+     * Applica i benefici del sonno allo studente, ricaricando la sua barra dell'energia.
+     *
+     * * @param studente Lo studente che si è riposato.
+     */
     @Override
     public void esegui(Studente studente) {
         if (isEseguibile(studente)) {
