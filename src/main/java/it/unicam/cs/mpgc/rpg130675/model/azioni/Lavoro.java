@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg130675.model.attività;
+package it.unicam.cs.mpgc.rpg130675.model.attivita;
 
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 import java.util.Random;
