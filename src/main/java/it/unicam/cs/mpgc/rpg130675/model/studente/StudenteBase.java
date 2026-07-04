@@ -130,7 +130,6 @@ public class StudenteBase implements Studente {
      */
     @Override
     public boolean isInBurnout() {
-        // Definiamo il burnout come raggiungere il 100% di stress
         return this.stress >= 100;
     }
 }

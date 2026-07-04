@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg130675.model.attivita;
+package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
