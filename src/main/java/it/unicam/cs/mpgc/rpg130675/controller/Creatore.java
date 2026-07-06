@@ -20,23 +20,23 @@ public class Creatore {
         List<Esame> esamiDaSostenere = new ArrayList<>();
 
         if(facoltaScelta.equals("Informatica per la comunicazione digitale")) {
-            esamiDaSostenere.add(new EsameScritto("Matematica", 18, 12));
-            esamiDaSostenere.add(new EsameScritto("Programmazione", 18, 12));
+            esamiDaSostenere.add(new EsameScritto("Matematica", 50, 12));
+            esamiDaSostenere.add(new EsameScritto("Programmazione", 60, 12));
+            esamiDaSostenere.add(new EsameScritto("Inglese", 20, 6));
+            esamiDaSostenere.add(new EsameScritto("Fondamenti dell'informatica", 40, 6));
+            esamiDaSostenere.add(new EsameScritto("Architettura degli elaboratori", 30, 6));
+            esamiDaSostenere.add(new EsameScritto("Diritto dei prodotti digitali", 20, 6));
+            esamiDaSostenere.add(new EsameScritto("Comunicazione e marketing", 60, 12));
+            esamiDaSostenere.add(new EsameScritto("Modellazione della conoscenza", 50, 12));
+        }else if(facoltaScelta.equals("Chimica")){
+            esamiDaSostenere.add(new EsameScritto("Matematica 1", 18, 12));
+            esamiDaSostenere.add(new EsameScritto("Chimica generale", 18, 14));
             esamiDaSostenere.add(new EsameScritto("Inglese", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Fondamenti dell'informatica", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Architettura degli elaboratori", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Diritto dei prodotti digitali", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Comunicazione e marketing", 18, 12));
-            esamiDaSostenere.add(new EsameScritto("Modellazione della conoscenza", 18, 12));
-        }else if(facoltaScelta.equals("Informatica")){
-            esamiDaSostenere.add(new EsameScritto("Matematica", 18, 12));
-            esamiDaSostenere.add(new EsameScritto("Programmazione", 18, 12));
-            esamiDaSostenere.add(new EsameScritto("Inglese", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Fondamenti dell'informatica", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Architettura degli elaboratori", 18, 12));
-            esamiDaSostenere.add(new EsameScritto("Calcolo della probabilità e statistica", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Business e management nell'information tecnology", 18, 6));
-            esamiDaSostenere.add(new EsameScritto("Metodologie di programmazione", 18, 12));
+            esamiDaSostenere.add(new EsameScritto("Matematica 2", 18, 6));
+            esamiDaSostenere.add(new EsameScritto("Fisica 1", 18, 6));
+            esamiDaSostenere.add(new EsameScritto("Chimica analitica 1", 18, 14));
+            esamiDaSostenere.add(new EsameScritto("Chimica Fisica 1", 18, 12));
+            esamiDaSostenere.add(new EsameScritto("Chimica Organiza 1", 18, 12));
         }
         return esamiDaSostenere;
     }

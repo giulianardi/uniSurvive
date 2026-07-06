@@ -63,7 +63,7 @@ public abstract class EsameBase implements Esame {
 
         int malusStress = calcolaMalusStress(studente.getStress());
 
-        int punteggioFinale = studente.getConoscenza() + lancioDado - malusStress;
+        int punteggioFinale = studente.getConoscenza() - lancioDado - malusStress;
 
         if (punteggioFinale >= this.difficolta) {
             applicaConseguenzePromozione(studente);

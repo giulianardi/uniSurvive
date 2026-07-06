@@ -33,7 +33,7 @@ public class WelcomeView extends JPanel {
         // potrebbero arrivare dal Model (es. un file di configurazione)
         String[] faculties = {
                 "Informatica per la comunicazione digitale",
-                "Informatica"
+                "Chimica"
         };
         facultyComboBox = new JComboBox<>(faculties);
 
@@ -79,6 +79,8 @@ public class WelcomeView extends JPanel {
     }
 
     private void setupInteractions() {
+        nameField.addActionListener(e -> startButton.doClick());
+
         startButton.addActionListener(e -> {
             String enteredName = nameField.getText().trim();
             String selectedFaculty = (String) facultyComboBox.getSelectedItem();

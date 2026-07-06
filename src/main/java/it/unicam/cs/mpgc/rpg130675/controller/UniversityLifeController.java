@@ -5,8 +5,6 @@ import it.unicam.cs.mpgc.rpg130675.model.azioni.Attivita;
 import it.unicam.cs.mpgc.rpg130675.model.esame.Esame;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.EventoCasuale;
 import it.unicam.cs.mpgc.rpg130675.model.studente.StudenteBase;
-import it.unicam.cs.mpgc.rpg130675.controller.Creatore;
-import it.unicam.cs.mpgc.rpg130675.gui.GameUIListener;
 import it.unicam.cs.mpgc.rpg130675.persistence.JsonStoricoRepository;
 import it.unicam.cs.mpgc.rpg130675.persistence.StoricoRepository;
 
@@ -88,6 +86,10 @@ public class UniversityLifeController {
     // Genera un numero random (es. da 1 a 100).
     // Se esce <= 15, innesca un imprevisto.
     private void gestisciEventiCasuali() {
+        if (this.mazzoEventi == null || this.mazzoEventi.isEmpty()) {
+            return;
+        }
+
         int possibilita = generatoreCasuale.nextInt(100) + 1;
         if (possibilita <= 15) {
             int indicePescato = generatoreCasuale.nextInt(this.mazzoEventi.size());
