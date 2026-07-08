@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg130675.gui;
 
+import it.unicam.cs.mpgc.rpg130675.model.studente.Facolta;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,7 @@ import java.awt.*;
 public class WelcomeView extends JPanel {
 
     private JTextField nameField;
-    private JComboBox<String> facultyComboBox;
+    private JComboBox<Facolta> facultyComboBox;
     private JButton startButton;
 
     // Il listener a cui comunicheremo le azioni dell'utente
@@ -31,13 +33,9 @@ public class WelcomeView extends JPanel {
 
         // Le scelte sono hardcoded per ora, ma in una versione avanzata
         // potrebbero arrivare dal Model (es. un file di configurazione)
-        String[] faculties = {
-                "Informatica per la comunicazione digitale",
-                "Chimica"
-        };
-        facultyComboBox = new JComboBox<>(faculties);
+        facultyComboBox = new JComboBox<>(Facolta.values());
 
-        startButton = new JButton("Inizia la Carriera Universitaria");
+        startButton = new JButton("Inizia la tua Carriera Universitaria");
     }
 
     private void setupLayout() {
@@ -83,7 +81,7 @@ public class WelcomeView extends JPanel {
 
         startButton.addActionListener(e -> {
             String enteredName = nameField.getText().trim();
-            String selectedFaculty = (String) facultyComboBox.getSelectedItem();
+            Facolta selectedFaculty = (Facolta) facultyComboBox.getSelectedItem();
 
             if (enteredName.isEmpty()) {
                 JOptionPane.showMessageDialog(this,

@@ -1,9 +1,6 @@
 package it.unicam.cs.mpgc.rpg130675.gui;
 
 // Importiamo il controller
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.intellijthemes.FlatArcOrangeIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatSolarizedLightIJTheme;
 import it.unicam.cs.mpgc.rpg130675.controller.UniversityLifeController;
 

@@ -34,21 +34,32 @@ public class MainGameView extends JPanel {
         this.listener = listener;
     }
 
+    /**
+     * Formatta il testo del bottone usando HTML per avere il nome dell'azione
+     * in alto e le statistiche in basso, con dimensioni del font differenziate.
+     */
+    private String formattaTestoBottone(TipoAzione azione) {
+        return "<html><center>" +
+                "<b>" + azione.getNomeDescrittivo() + "</b><br>" +
+                "<span style='font-size:9px; color:#555555;'>" + azione.getImpattoStatistiche() + "</span>" +
+                "</center></html>";
+    }
+
     private void initializeComponents() {
-        turnLabel = new JLabel("Turno: 20", SwingConstants.CENTER);
+        turnLabel = new JLabel("Turni all'esame: 20", SwingConstants.CENTER);
         turnLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
         knowledgeLabel = new JLabel("Conoscenza: 0");
         energyLabel = new JLabel("Energia: 100");
         stressLabel = new JLabel("Stress: 0");
-        moneyLabel = new JLabel("Denaro: 50€");
+        moneyLabel = new JLabel("Denaro: 0€");
 
-        studyButton = new JButton("Studia");
-        workButton = new JButton("Lavora (Part-Time)");
-        partyButton = new JButton("Festa (Svago)");
-        sleepButton = new JButton("Dormi / Riposa");
+        studyButton = new JButton(formattaTestoBottone(TipoAzione.STUDIA));
+        workButton = new JButton(formattaTestoBottone(TipoAzione.LAVORA));
+        partyButton = new JButton(formattaTestoBottone(TipoAzione.FESTA));
+        sleepButton = new JButton(formattaTestoBottone(TipoAzione.DORMI));
 
-        librettoButton = new JButton("📖 Libretto Esami");
+        librettoButton = new JButton("📖 " + TipoAzione.LIBRETTO.getNomeDescrittivo());
 
         // Colore Studio: Azzurro
         studyButton.setBackground(new Color(52, 152, 219));
@@ -125,7 +136,7 @@ public class MainGameView extends JPanel {
      * in base allo stato reale del Modello.
      */
     public void updateStats(int turn, int knowledge, int energy, int stress, int money) {
-        turnLabel.setText("Turno: " + turn);
+        turnLabel.setText("Turni all'esame: " + turn);
         knowledgeLabel.setText("Conoscenza: " + knowledge);
         energyLabel.setText("Energia: " + energy);
         stressLabel.setText("Stress: " + stress);

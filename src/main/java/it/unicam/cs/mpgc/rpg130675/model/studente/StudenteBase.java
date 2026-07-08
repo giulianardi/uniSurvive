@@ -41,7 +41,7 @@ public class StudenteBase implements Studente {
         this.conoscenza = 0;
         this.energia = 100;
         this.stress = 0;
-        this.denaro = 100;
+        this.denaro = 0;
         this.cfu = 0;
     }
 
