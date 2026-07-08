@@ -1,5 +1,10 @@
 package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
+/**
+ * Rappresenta le tipologie di azioni che lo studente può compiere durante il turno.
+ * Ogni costante definisce il nome leggibile per l'interfaccia utente e una descrizione
+ * testuale dell'impatto prodotto sulle statistiche del personaggio.
+ */
 public enum TipoAzione {
     STUDIA("Studia", "-20 Energia | +10 Con | +15 Stress"),
     LAVORA("Lavora", "-30 Energia | +40 Den | + Stress Random"),

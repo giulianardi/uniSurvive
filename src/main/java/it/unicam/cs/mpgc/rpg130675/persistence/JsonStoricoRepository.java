@@ -22,7 +22,6 @@ public class JsonStoricoRepository implements StoricoRepository{
         EsameSalvato esameDaSalvare = new EsameSalvato(esame.getNomeMateria(), esame.getCfuForniti());
         libretto.aggiungiEsame(esameDaSalvare);
 
-        // 3. Salviamo tutto aggiornato nel file JSON
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(libretto, writer);
             System.out.println("Esame '" + esame.getNomeMateria() + "' salvato nello storico permanente!");
@@ -34,20 +33,16 @@ public class JsonStoricoRepository implements StoricoRepository{
     @Override
     public LibrettoUniversitario caricaStorico() {
         try (FileReader reader = new FileReader(FILE_PATH)) {
-            // Gson legge il file e ricostruisce l'oggetto LibrettoUniversitario
             return gson.fromJson(reader, LibrettoUniversitario.class);
         } catch (IOException e) {
-            // Se il file non esiste (es. prima partita in assoluto), ritorniamo null
             return null;
         }
     }
 
     @Override
     public void azzeraStorico() {
-        // Creiamo un libretto nuovo e vuoto
         LibrettoUniversitario librettoVuoto = new LibrettoUniversitario();
 
-        // Sovrascriviamo il file json vecchio con quello vuoto
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
             gson.toJson(librettoVuoto, writer);
             System.out.println("File JSON azzerato per la nuova partita!");

@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg130675.model.azioni;
 import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
+
 /**
  * Rappresenta un'azione generica che lo studente può compiere durante un turno di gioco.
  * <p>

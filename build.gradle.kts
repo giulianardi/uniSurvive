@@ -24,5 +24,5 @@ tasks.test {
 }
 
 application {
-    mainClass.set("it.unicam.cs.mpgc.rpg130675.gui.Applicazione")
+    mainClass.set("it.unicam.cs.mpgc.rpg130675.app.Applicazione")
 }

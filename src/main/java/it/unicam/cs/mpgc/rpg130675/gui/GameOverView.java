@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg130675.gui;
 import javax.swing.*;
 import java.awt.*;
 
+
 /**
  * Schermata di Game Over. Ha la singola responsabilità di mostrare
  * l'esito negativo della partita e permettere l'uscita.

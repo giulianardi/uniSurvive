@@ -46,7 +46,7 @@ public class WelcomeView extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Titolo
-        JLabel titleLabel = new JLabel("Simulatore di Vita Universitaria", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("UniSurvive", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;

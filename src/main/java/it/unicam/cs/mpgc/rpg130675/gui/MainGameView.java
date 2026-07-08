@@ -4,6 +4,7 @@ import it.unicam.cs.mpgc.rpg130675.model.azioni.TipoAzione;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class MainGameView extends JPanel {
 
     // Etichette per mostrare i dati
@@ -34,11 +35,8 @@ public class MainGameView extends JPanel {
         this.listener = listener;
     }
 
-    /**
-     * Formatta il testo del bottone usando HTML per avere il nome dell'azione
-     * in alto e le statistiche in basso, con dimensioni del font differenziate.
-     */
     private String formattaTestoBottone(TipoAzione azione) {
+        //Formatta il testo del bottone dell'azione usando HTML
         return "<html><center>" +
                 "<b>" + azione.getNomeDescrittivo() + "</b><br>" +
                 "<span style='font-size:9px; color:#555555;'>" + azione.getImpattoStatistiche() + "</span>" +
@@ -66,7 +64,7 @@ public class MainGameView extends JPanel {
         studyButton.setForeground(Color.WHITE); // Testo bianco
         studyButton.setFont(new Font("Arial", Font.BOLD, 14));
 
-        // Colore Lavoro: Rosso/Arancio
+        // Colore Lavoro: Rosso
         workButton.setBackground(new Color(231, 76, 60));
         workButton.setForeground(Color.WHITE);
         workButton.setFont(new Font("Arial", Font.BOLD, 14));
@@ -81,7 +79,7 @@ public class MainGameView extends JPanel {
         sleepButton.setForeground(Color.WHITE);
         sleepButton.setFont(new Font("Arial", Font.BOLD, 14));
 
-        // Colore Libretto: Giallo scuro / Oro
+        // Colore Libretto: Giallo
         librettoButton.setBackground(new Color(243, 156, 18));
         librettoButton.setForeground(Color.WHITE);
     }

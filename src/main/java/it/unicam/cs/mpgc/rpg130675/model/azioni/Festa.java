@@ -14,13 +14,10 @@ import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
  */
 public class Festa implements Attivita {
 
-    /** Il costo in termini di punti energia necessari per affrontare la serata. */
     private static final int COSTO_ENERGIA = -20;
 
-    /** Il valore (negativo) di abbattimento del livello di stress dello studente. */
     private static final int COSTO_STRESS = -40;
 
-    /** L'impatto economico dell'attività sulle finanze dello studente. */
     private static final int COSTO_DENARO = -30;
 
     @Override
@@ -39,7 +36,7 @@ public class Festa implements Attivita {
      * Metodo helper privato per calcolare se il portafoglio dello studente permette questa spesa.
      *
      * @param studente Lo studente da verificare.
-     * @return {@code true} se lo studente ha abbastanza soldi, {@code false} altrimenti.
+     * @return true se lo studente ha abbastanza soldi, false altrimenti.
      */
     private boolean isDenaroSufficiente(Studente studente){
         return studente.getDenaro() >= Math.abs(COSTO_DENARO);
@@ -49,7 +46,7 @@ public class Festa implements Attivita {
      * Metodo helper privato per calcolare se lo studente non è troppo stanco per uscire.
      *
      * @param studente Lo studente da verificare.
-     * @return {@code true} se lo studente ha abbastanza energia, {@code false} altrimenti.
+     * @return true se lo studente ha abbastanza energia, false altrimenti.
      */
     private boolean isEnergiaSufficiente(Studente studente){
         return studente.getEnergia() >= Math.abs(COSTO_ENERGIA);
@@ -60,7 +57,7 @@ public class Festa implements Attivita {
      * Affinché sia possibile, deve avere sia i soldi che le energie necessarie.
      *
      * * @param studente Lo studente che vuole uscire.
-     * @return {@code true} se l'azione è permessa, {@code false} altrimenti.
+     * @return true se l'azione è permessa, false altrimenti.
      */
     @Override
     public boolean isEseguibile(Studente studente) {
@@ -71,7 +68,7 @@ public class Festa implements Attivita {
      * Applica le modifiche alle statistiche dello studente dopo aver fatto festa.
      * Toglie soldi ed energia, ma riduce lo stress.
      * * @param studente Lo studente su cui applicare gli effetti.
-     * @throws it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
+     * @throws EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
      */
     @Override
     public void esegui(Studente studente) throws EccezioneInsufficienzaRisorse {

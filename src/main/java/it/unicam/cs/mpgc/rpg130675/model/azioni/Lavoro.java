@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
 import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
+
 import java.util.Random;
 
 /**
@@ -16,6 +17,7 @@ import java.util.Random;
 public class Lavoro implements Attivita {
 
     private static final int COSTO_ENERGIA = -30;
+
     private static final int AUMENTO_DENARO = 40;
 
     private static final int MIN_STRESS = 10;
@@ -49,7 +51,7 @@ public class Lavoro implements Attivita {
      * Per lavorare non servono soldi, ma è indispensabile avere abbastanza energia.
      *
      * * @param studente Lo studente che intende lavorare.
-     * @return {@code true} se l'energia è sufficiente, {@code false} se lo studente è troppo stanco.
+     * @return true se l'energia è sufficiente, false se lo studente è troppo stanco.
      */
     @Override
     public boolean isEseguibile(Studente studente) {
@@ -61,7 +63,7 @@ public class Lavoro implements Attivita {
      * È un metodo di supporto (helper) creato per nascondere la formula matematica
      * della generazione casuale e mantenere il metodo esegui() più pulito.
      *
-     * * @return Un numero casuale compreso tra il livello minimo e massimo di stress.
+     * @return Un numero casuale compreso tra il livello minimo e massimo di stress.
      */
     private int stressDiOggi(){
         return generatoreCasuale.nextInt((MAX_STRESS - MIN_STRESS) + 1) + MIN_STRESS;

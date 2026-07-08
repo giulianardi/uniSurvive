@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.bonus;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.EventoCasualeBase;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
+
 /**
  * Livello intermedio nella gerarchia degli eventi randomici, specializzato
  * nella modellazione di occorrenze di natura benefica (bonus).

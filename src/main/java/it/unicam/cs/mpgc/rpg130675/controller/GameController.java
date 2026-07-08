@@ -7,15 +7,20 @@ import it.unicam.cs.mpgc.rpg130675.model.esame.Esame;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.EventoCasuale;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Facolta;
 import it.unicam.cs.mpgc.rpg130675.model.studente.StudenteBase;
+import it.unicam.cs.mpgc.rpg130675.persistence.EsameSalvato;
 import it.unicam.cs.mpgc.rpg130675.persistence.JsonStoricoRepository;
+import it.unicam.cs.mpgc.rpg130675.persistence.LibrettoUniversitario;
 import it.unicam.cs.mpgc.rpg130675.persistence.StoricoRepository;
 
 import java.util.List;
 import java.util.Random;
 
 
-
-public class UniversityLifeController {
+/**
+ * Gestisce la logica di gioco, coordinando le interazioni tra studente,
+ * attività, eventi casuali e GUI.
+ */
+public class GameController {
 
     private StudenteBase studente;
     private List<Esame> esamiDaSostenere;
@@ -29,19 +34,24 @@ public class UniversityLifeController {
 
     private GameUIListener uiListener;
 
-    public UniversityLifeController(GameUIListener uiListener) {
+    /**
+     * Inizializza il controller di gioco.
+     *
+     * @param uiListener il listener per comunicare con l'interfaccia grafica.
+     */
+    public GameController(GameUIListener uiListener) {
         this.uiListener = uiListener;
     }
 
     /**
      * Metodo helper privato. Controlla se lo studente ha raggiunto o superato
-     * il limite massimo di stress (Burnout).
+     * il limite massimo di stress (Burnout). In caso lo abbia raggiunto comunica
+     * con la grafica dicendogli di avviare la schermata di Game Over.
+     *
      * * @return true se il giocatore ha perso, false altrimenti.
      */
     private boolean controllaGameOver() {
         if (this.studente.isInBurnout()) {
-            // Comunichiamo alla Vista di mostrare la schermata di Game Over
-            // bloccando l'esecuzione di qualsiasi altra logica.
             if (this.uiListener != null) {
                 this.uiListener.triggerGameOver(this.studente.getNome());
             }
@@ -50,6 +60,12 @@ public class UniversityLifeController {
         return false;
     }
 
+    /**
+     * Inizializza una nuova partita preparando studente, esami ed eventi.
+     *
+     * @param nomeGiocatore il nome del personaggio.
+     * @param facoltaScelta la facoltà scelta per il percorso accademico.
+     */
     public void avviaPartita(String nomeGiocatore, Facolta facoltaScelta) {
         Creatore creatore = new Creatore();
 
@@ -69,6 +85,11 @@ public class UniversityLifeController {
         }
     }
 
+    /**
+     * Esegue l'attività selezionata dallo studente e avanza al turno successivo.
+     *
+     * @param attivitaScelta l'attività che lo studente intende svolgere.
+     */
     public void eseguiAzione(Attivita attivitaScelta) {
         try {
             attivitaScelta.esegui(this.studente);
@@ -83,8 +104,12 @@ public class UniversityLifeController {
         }
     }
 
-    // Genera un numero random (es. da 1 a 100).
-    // Se esce <= 15, innesca un imprevisto.
+    /**
+     * Gestisce la probabilità di occorrenza di un evento casuale.
+     * <p>
+     * Genera un numero random da 1 a 100.
+     * Se esce un numero minore o uguale a 15, innesca un imprevisto.
+     */
     private void gestisciEventiCasuali() {
         if (this.mazzoEventi == null || this.mazzoEventi.isEmpty()) {
             return;
@@ -104,22 +129,26 @@ public class UniversityLifeController {
 
     }
 
-    private void avanzaTurno() {
-
-        // 1. Controllo immediato: l'azione appena eseguita ha causato il burnout?
-        if (controllaGameOver()) {
-            return; // Interrompe il turno, il gioco è finito
-        }
-
-        // 2. Innesco degli Eventi Casuali
-        gestisciEventiCasuali();
-
-        // 3. Secondo controllo: un evento negativo (es. Computer Guasto) ha causato il burnout?
+    private void GameOver(){
         if (controllaGameOver()) {
             return;
         }
+    }
 
-        // 4. Gestione del timer dell'Esame
+    /**
+     * Gestisce l'avanzamento del tempo, i controlli di stato e lo svolgimento degli esami.
+     */
+    private void avanzaTurno() {
+
+        //Controllo immediato: l'azione appena eseguita ha causato il burnout?
+        GameOver();
+
+        //Innesco degli Eventi Casuali
+        gestisciEventiCasuali();
+
+        //Secondo controllo: un evento negativo ha causato il burnout?
+        GameOver();
+
         this.turniAllEsame--;
 
         if (this.turniAllEsame <= 0 && esameAttuale != null) {
@@ -141,15 +170,11 @@ public class UniversityLifeController {
                 uiListener.mostraMessaggio("Bocciato...", "Hai fallito l'esame di " + esameAttuale.getNomeMateria() + ". Lo stress aumenta!");
                 this.turniAllEsame = 10; // Penalità di tempo per riprovare l'esame
 
-                // 5. Terzo e ultimo controllo: la delusione della bocciatura ha causato il burnout?
-                if (controllaGameOver()) {
-                    return;
-                }
+                //Terzo e ultimo controllo: la delusione della bocciatura ha causato il burnout?
+                GameOver();
             }
         }
 
-        // Se siamo arrivati fin qui, il giocatore è sopravvissuto al turno.
-        // Aggiorniamo i dati a schermo.
         aggiornaGrafica();
     }
 
@@ -160,7 +185,7 @@ public class UniversityLifeController {
     private void aggiornaGrafica() {
         if (this.uiListener != null) {
             this.uiListener.aggiornaStatistiche(
-                    this.turniAllEsame, // Mostriamo quanti turni mancano alla scadenza
+                    this.turniAllEsame,
                     this.studente.getConoscenza(),
                     this.studente.getEnergia(),
                     this.studente.getStress(),
@@ -169,10 +194,13 @@ public class UniversityLifeController {
         }
     }
 
+    /**
+     * Recupera lo storico degli esami salvati e mostra un riepilogo all'utente.
+     */
     public void mostraLibretto() {
         if (archivioStorico == null) return;
 
-        it.unicam.cs.mpgc.rpg130675.persistence.LibrettoUniversitario libretto = archivioStorico.caricaStorico();
+        LibrettoUniversitario libretto = archivioStorico.caricaStorico();
 
         if (libretto == null || libretto.getEsamiSuperati().isEmpty()) {
             if (uiListener != null) uiListener.mostraMessaggio("Libretto Vuoto", "Non hai ancora superato nessun esame nella tua carriera!");
@@ -183,7 +211,7 @@ public class UniversityLifeController {
         sb.append("--- ESAMI SUPERATI NELLA STORIA ---\n\n");
         int cfuTotali = 0;
 
-        for (it.unicam.cs.mpgc.rpg130675.persistence.EsameSalvato esame : libretto.getEsamiSuperati()) {
+        for (EsameSalvato esame : libretto.getEsamiSuperati()) {
             sb.append("✔ ").append(esame.getNomeMateria()).append(" (").append(esame.getCfuGuadagnati()).append(" CFU)\n");
             cfuTotali += esame.getCfuGuadagnati();
         }
