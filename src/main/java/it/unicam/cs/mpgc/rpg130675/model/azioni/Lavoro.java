@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
+import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 import java.util.Random;
 
@@ -71,17 +72,16 @@ public class Lavoro implements Attivita {
      * Toglie l'energia, aumenta il denaro (stipendio) e applica lo stress calcolato per oggi.
      *
      * * @param studente Lo studente che ha lavorato.
-     * @throws IllegalStateException se il gioco tenta di forzare il lavoro anche
-     * quando lo studente non ha l'energia necessaria.
+     * @throws EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
      */
     @Override
-    public void esegui(Studente studente) {
+    public void esegui(Studente studente) throws EccezioneInsufficienzaRisorse {
         if(isEseguibile(studente)){
             studente.editEnergia(COSTO_ENERGIA);
             studente.editDenaro(AUMENTO_DENARO);
             studente.editStress(stressDiOggi());
         }else {
-            throw new IllegalStateException("L'energia non è sufficiente per lavorare!");
+            throw new EccezioneInsufficienzaRisorse("L'energia non è sufficiente per lavorare!");
         }
     }
 }

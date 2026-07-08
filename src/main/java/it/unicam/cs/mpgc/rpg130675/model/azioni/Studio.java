@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
+import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
 /**
@@ -43,17 +44,16 @@ public class Studio implements Attivita {
      * Consuma energia, fa salire lo stress da prestazione, ma aumenta il punteggio di conoscenza vitale per l'esame.
      *
      * @param studente Lo studente che ha appena finito di studiare.
-     * @throws IllegalStateException se il gioco tenta di far studiare lo studente quando
-     * non ha l'energia minima richiesta per farlo.
+     * @throws EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
      */
     @Override
-    public void esegui(Studente studente) {
+    public void esegui(Studente studente) throws EccezioneInsufficienzaRisorse {
         if (isEseguibile(studente)) {
             studente.editEnergia(COSTO_ENERGIA);
             studente.editStress(AUMENTO_STRESS);
             studente.editConoscenza(AUMENTO_CONOSCENZA);
         } else {
-            throw new IllegalStateException("L'energia non è sufficiente per studiare!");
+            throw new EccezioneInsufficienzaRisorse("L'energia non è sufficiente per studiare!");
         }
     }
     }

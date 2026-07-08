@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
+import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
 /**
@@ -70,17 +71,20 @@ public class Festa implements Attivita {
      * Applica le modifiche alle statistiche dello studente dopo aver fatto festa.
      * Toglie soldi ed energia, ma riduce lo stress.
      * * @param studente Lo studente su cui applicare gli effetti.
-     * @throws IllegalArgumentException se il gioco prova a far partire la festa
-     * senza che lo studente abbia i requisiti necessari.
+     * @throws it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
      */
     @Override
-    public void esegui(Studente studente) {
+    public void esegui(Studente studente) throws EccezioneInsufficienzaRisorse {
         if(isEseguibile(studente)){
             studente.editDenaro(COSTO_DENARO);
             studente.editEnergia(COSTO_ENERGIA);
             studente.editStress(COSTO_STRESS);
+        }else if(studente.getEnergia()<Math.abs(COSTO_ENERGIA)){
+            throw new EccezioneInsufficienzaRisorse("L'energia non è sufficiente per fare festa!");
+        }else if(studente.getDenaro()<Math.abs(COSTO_DENARO)){
+            throw new EccezioneInsufficienzaRisorse("Il denaro non è sufficiente per fare festa!");
         }else{
-            throw new IllegalArgumentException("Non hai abbastanza risorse per andare ad una festa :(");
+            throw new EccezioneInsufficienzaRisorse("Non hai abbastanza risorse per andare ad una festa :(");
         }
     }
 }

@@ -12,7 +12,7 @@ package it.unicam.cs.mpgc.rpg130675.model.studente;
 public interface Studente {
     String getNome();
 
-    String getFacolta();
+    Facolta getFacolta();
 
     int getEnergia();
 

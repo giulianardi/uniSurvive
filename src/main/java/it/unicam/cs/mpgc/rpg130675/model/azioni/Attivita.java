@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg130675.model.azioni;
 
+import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
 /**
@@ -32,5 +33,5 @@ public interface Attivita {
      * </p>
      * * @param studente L'istanza dello studente su cui applicare gli effetti dell'attività.
      */
-    void esegui(Studente studente);
+    void esegui(Studente studente) throws EccezioneInsufficienzaRisorse;
 }

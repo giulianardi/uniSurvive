@@ -1,9 +1,11 @@
 package it.unicam.cs.mpgc.rpg130675.controller;
 
+import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
 import it.unicam.cs.mpgc.rpg130675.gui.GameUIListener;
 import it.unicam.cs.mpgc.rpg130675.model.azioni.Attivita;
 import it.unicam.cs.mpgc.rpg130675.model.esame.Esame;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.EventoCasuale;
+import it.unicam.cs.mpgc.rpg130675.model.studente.Facolta;
 import it.unicam.cs.mpgc.rpg130675.model.studente.StudenteBase;
 import it.unicam.cs.mpgc.rpg130675.persistence.JsonStoricoRepository;
 import it.unicam.cs.mpgc.rpg130675.persistence.StoricoRepository;
@@ -48,7 +50,7 @@ public class UniversityLifeController {
         return false;
     }
 
-    public void avviaPartita(String nomeGiocatore, String facoltaScelta) {
+    public void avviaPartita(String nomeGiocatore, Facolta facoltaScelta) {
         Creatore creatore = new Creatore();
 
         this.studente = creatore.creaStudente(nomeGiocatore, facoltaScelta);
@@ -70,12 +72,10 @@ public class UniversityLifeController {
     public void eseguiAzione(Attivita attivitaScelta) {
         try {
             attivitaScelta.esegui(this.studente);
+            System.out.println("Azione completata con successo!");
             avanzaTurno();
-        } catch (Exception e) {
-            // QUESTO COMANDO È FONDAMENTALE PER IL DEBUG:
-            // Stampa l'errore rosso in console rivelando il colpevole!
-            System.err.println("!!! ATTENZIONE: ERRORE CATTURATO !!!");
-            e.printStackTrace();
+        } catch (EccezioneInsufficienzaRisorse e) {
+            System.out.println("Impossibile eseguire l'azione: " + e.getMessage());
 
             if (this.uiListener != null) {
                 uiListener.mostraMessaggio("Azione non permessa", e.getMessage());

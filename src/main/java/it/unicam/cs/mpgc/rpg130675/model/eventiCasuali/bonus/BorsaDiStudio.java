@@ -24,6 +24,6 @@ public class BorsaDiStudio extends EventoCasualePositivo {
     @Override
     public void innesca(Studente studente) {
         aumentoDenaro(BONUS_DENARO_MINIMO,BONUS_DENARO_MASSIMO,studente);
-        perditaStress(BONUS_DENARO_MINIMO,BONUS_STRESS_MASSIMO,studente);
+        perditaStress(BONUS_STRESS_MINIMO,BONUS_STRESS_MASSIMO,studente);
     }
 }

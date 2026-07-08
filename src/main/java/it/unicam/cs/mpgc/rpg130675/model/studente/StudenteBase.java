@@ -12,7 +12,7 @@ package it.unicam.cs.mpgc.rpg130675.model.studente;
 public class StudenteBase implements Studente {
 
     private String nome;
-    private String facolta;
+    private Facolta facolta;
     private int conoscenza;
     private int energia;
     private int stress;
@@ -35,7 +35,7 @@ public class StudenteBase implements Studente {
      * @param nome    L'identificativo anagrafico dell'utente.
      * @param facolta La disciplina di studi scelta.
      */
-    public StudenteBase(String nome, String facolta) {
+    public StudenteBase(String nome, Facolta facolta) {
         this.nome = nome;
         this.facolta = facolta;
         this.conoscenza = 0;
@@ -49,7 +49,7 @@ public class StudenteBase implements Studente {
     public String getNome() { return this.nome; }
 
     @Override
-    public String getFacolta() { return this.facolta; }
+    public Facolta getFacolta() { return this.facolta; }
 
     @Override
     public int getConoscenza() { return this.conoscenza; }

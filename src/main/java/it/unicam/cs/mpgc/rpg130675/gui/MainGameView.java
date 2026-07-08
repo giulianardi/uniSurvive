@@ -1,4 +1,6 @@
 package it.unicam.cs.mpgc.rpg130675.gui;
+import it.unicam.cs.mpgc.rpg130675.model.azioni.TipoAzione;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -104,15 +106,15 @@ public class MainGameView extends JPanel {
 
     private void setupInteractions() {
         // Quando un bottone viene premuto, avvisiamo il listener
-        studyButton.addActionListener(e -> notifyAction("STUDIA"));
-        workButton.addActionListener(e -> notifyAction("LAVORA"));
-        partyButton.addActionListener(e -> notifyAction("FESTA"));
-        sleepButton.addActionListener(e -> notifyAction("DORMI"));
+        studyButton.addActionListener(e -> notifyAction(TipoAzione.STUDIA));
+        workButton.addActionListener(e -> notifyAction(TipoAzione.LAVORA));
+        partyButton.addActionListener(e -> notifyAction(TipoAzione.FESTA));
+        sleepButton.addActionListener(e -> notifyAction(TipoAzione.DORMI));
 
-        librettoButton.addActionListener(e -> notifyAction("LIBRETTO"));
+        librettoButton.addActionListener(e -> notifyAction(TipoAzione.LIBRETTO));
     }
 
-    private void notifyAction(String actionType) {
+    private void notifyAction(TipoAzione actionType) {
         if (listener != null) {
             listener.onActionSelected(actionType);
         }

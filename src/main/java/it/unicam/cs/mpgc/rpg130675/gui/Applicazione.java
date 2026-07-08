@@ -88,23 +88,23 @@ public class Applicazione {
 
                     try {
                         switch (azioneScelta) {
-                            case "STUDIA":
+                            case STUDIA:
                                 System.out.println("Invio comando Studio al controller...");
                                 controller.eseguiAzione(new Studio());
                                 break;
-                            case "LAVORA":
+                            case LAVORA:
                                 System.out.println("Invio comando Lavoro al controller...");
                                 controller.eseguiAzione(new Lavoro());
                                 break;
-                            case "FESTA":
+                            case FESTA:
                                 System.out.println("Invio comando Festa al controller...");
                                 controller.eseguiAzione(new Festa());
                                 break;
-                            case "DORMI":
+                            case DORMI:
                                 System.out.println("Invio comando Riposo al controller...");
                                 controller.eseguiAzione(new Riposo());
                                 break;
-                            case "LIBRETTO":
+                            case LIBRETTO:
                                 controller.mostraLibretto();
                                 break;
                             default:
