@@ -8,8 +8,13 @@ import javax.swing.*;
  * Riceve gli aggiornamenti dal motore di gioco e li riflette sulla vista principale.
  */
 public class GameUIListener {
-    MainGameView gameView = new MainGameView();
-    JFrame frame = new JFrame("UniSurvive");
+    private final MainGameView gameView;
+    private final JFrame frame;
+
+    public GameUIListener(MainGameView gameView, JFrame frame) {
+        this.gameView = gameView;
+        this.frame = frame;
+    }
 
     public void aggiornaStatistiche(int turno, int conoscenza, int energia, int stress, int denaro) {
         gameView.updateStats(turno, conoscenza, energia, stress, denaro);

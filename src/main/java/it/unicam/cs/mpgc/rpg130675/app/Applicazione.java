@@ -39,7 +39,7 @@ public class Applicazione {
             welcomeView.setWelcomeScreenListener((nome, facolta) -> {
 
                 MainGameView gameView = new MainGameView();
-                GameUIListener uiListener = new GameUIListener();
+                GameUIListener uiListener = new GameUIListener(gameView, frame);
                 GameController controller = new GameController(uiListener);
 
                 controller.avviaPartita(nome, facolta);
@@ -77,7 +77,8 @@ public class Applicazione {
                     }
                 });
 
-                frame.add(gameView);
+                frame.getContentPane().removeAll();
+                frame.setContentPane(gameView);
                 frame.revalidate();
                 frame.repaint();
             });

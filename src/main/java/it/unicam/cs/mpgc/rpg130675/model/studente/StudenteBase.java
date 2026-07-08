@@ -97,15 +97,13 @@ public class StudenteBase implements Studente {
 
     /**
      * Applica una variazione algebrica (positiva o negativa) al patrimonio dello studente.
-     * <p>
-     * In questa implementazione base, il portafoglio consente di andare in negativo (debiti).
-     * </p>
-     *
+     * In questa implementazione base, il portafoglio non consente di andare in negativo.
      * @param quantita Il valore delta da sommare o sottrarre al totale corrente.
      */
     @Override
     public void editDenaro(int quantita) {
-        this.denaro += quantita;
+        int nuovoDenaro = this.stress + quantita;
+        this.stress = Math.max(0, nuovoDenaro);
     }
 
     /**
