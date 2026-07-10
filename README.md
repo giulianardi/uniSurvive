@@ -45,6 +45,8 @@ Nello specifico, ho utilizzato Gemini per:
 
 - Troubleshooting: Risoluzione mirata di errori in fase di compilazione e supporto nella configurazione di Gradle.
 
+📌 Per una descrizione più dettagliata delle scelte progettuali e dell'uso dell'AI, consultare la Wiki del repository.
+
 
 
 
