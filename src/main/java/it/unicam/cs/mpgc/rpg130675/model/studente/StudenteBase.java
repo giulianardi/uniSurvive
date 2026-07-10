@@ -26,7 +26,7 @@ public class StudenteBase implements Studente {
      * <p>
      * Valori di default applicati all'istanza:
      * - Energia: 100 (massimo)
-     * - Denaro: 100 (budget di partenza)
+     * - Denaro: 0 (budget di partenza)
      * - Conoscenza: 0
      * - Stress: 0
      * - CFU: 0
@@ -102,8 +102,8 @@ public class StudenteBase implements Studente {
      */
     @Override
     public void editDenaro(int quantita) {
-        int nuovoDenaro = this.stress + quantita;
-        this.stress = Math.max(0, nuovoDenaro);
+        int nuovoDenaro = this.denaro + quantita;
+        this.denaro = Math.max(0, nuovoDenaro);
     }
 
     /**

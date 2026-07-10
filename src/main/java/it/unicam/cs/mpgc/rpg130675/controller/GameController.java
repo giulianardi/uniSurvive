@@ -129,11 +129,6 @@ public class GameController {
 
     }
 
-    private void GameOver(){
-        if (controllaGameOver()) {
-            return;
-        }
-    }
 
     /**
      * Gestisce l'avanzamento del tempo, i controlli di stato e lo svolgimento degli esami.
@@ -141,13 +136,17 @@ public class GameController {
     private void avanzaTurno() {
 
         //Controllo immediato: l'azione appena eseguita ha causato il burnout?
-        GameOver();
+        if (controllaGameOver()) {
+            return;
+        }
 
         //Innesco degli Eventi Casuali
         gestisciEventiCasuali();
 
         //Secondo controllo: un evento negativo ha causato il burnout?
-        GameOver();
+        if (controllaGameOver()) {
+            return;
+        }
 
         this.turniAllEsame--;
 
@@ -171,7 +170,9 @@ public class GameController {
                 this.turniAllEsame = 10; // Penalità di tempo per riprovare l'esame
 
                 //Terzo e ultimo controllo: la delusione della bocciatura ha causato il burnout?
-                GameOver();
+                if (controllaGameOver()) {
+                    return;
+                }
             }
         }
 
