@@ -5,12 +5,11 @@ import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
 /**
  * Rappresenta l'attività ricreativa "Festa" all'interno del simulatore.
- * <p>
+ *
  * Questa classe concreta definisce un'azione strategica a disposizione del giocatore,
  * mirata alla riduzione drastica dello stress per prevenire il Burnout.
  * La classe incapsula esclusivamente i costi, i benefici e le regole di validazione
  * legate a questo specifico evento.
- * </p>
  */
 public class Festa implements Attivita {
 
@@ -32,44 +31,19 @@ public class Festa implements Attivita {
                 " per abbattere drasticamente lo stress e allontanare lo spettro del Burnout.";
     }
 
-    /**
-     * Metodo helper privato per calcolare se il portafoglio dello studente permette questa spesa.
-     *
-     * @param studente Lo studente da verificare.
-     * @return true se lo studente ha abbastanza soldi, false altrimenti.
-     */
     private boolean isDenaroSufficiente(Studente studente){
         return studente.getDenaro() >= Math.abs(COSTO_DENARO);
     }
 
-    /**
-     * Metodo helper privato per calcolare se lo studente non è troppo stanco per uscire.
-     *
-     * @param studente Lo studente da verificare.
-     * @return true se lo studente ha abbastanza energia, false altrimenti.
-     */
     private boolean isEnergiaSufficiente(Studente studente){
         return studente.getEnergia() >= Math.abs(COSTO_ENERGIA);
     }
 
-    /**
-     * Verifica se lo studente può andare alla festa in questo turno.
-     * Affinché sia possibile, deve avere sia i soldi che le energie necessarie.
-     *
-     * * @param studente Lo studente che vuole uscire.
-     * @return true se l'azione è permessa, false altrimenti.
-     */
     @Override
     public boolean isEseguibile(Studente studente) {
         return isDenaroSufficiente(studente) && isEnergiaSufficiente(studente);
     }
 
-    /**
-     * Applica le modifiche alle statistiche dello studente dopo aver fatto festa.
-     * Toglie soldi ed energia, ma riduce lo stress.
-     * * @param studente Lo studente su cui applicare gli effetti.
-     * @throws EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
-     */
     @Override
     public void esegui(Studente studente) throws EccezioneInsufficienzaRisorse {
         if(isEseguibile(studente)){

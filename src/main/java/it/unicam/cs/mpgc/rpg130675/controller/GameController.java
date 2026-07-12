@@ -35,22 +35,10 @@ public class GameController {
 
     private GameUIListener uiListener;
 
-    /**
-     * Inizializza il controller di gioco.
-     *
-     * @param uiListener il listener per comunicare con l'interfaccia grafica.
-     */
     public GameController(GameUIListener uiListener) {
         this.uiListener = uiListener;
     }
 
-    /**
-     * Metodo helper privato. Controlla se lo studente ha raggiunto o superato
-     * il limite massimo di stress (Burnout). In caso lo abbia raggiunto comunica
-     * con la grafica dicendogli di avviare la schermata di Game Over.
-     *
-     * * @return true se il giocatore ha perso, false altrimenti.
-     */
     private boolean controllaGameOver() {
         if (this.studente.isInBurnout()) {
             if (this.uiListener != null) {
@@ -61,12 +49,6 @@ public class GameController {
         return false;
     }
 
-    /**
-     * Inizializza una nuova partita preparando studente, esami ed eventi.
-     *
-     * @param nomeGiocatore il nome del personaggio.
-     * @param facoltaScelta la facoltà scelta per il percorso accademico.
-     */
     public void avviaPartita(String nomeGiocatore, Facolta facoltaScelta) {
         Creatore creatore = new Creatore();
 
@@ -86,11 +68,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Esegue l'attività selezionata dallo studente e avanza al turno successivo.
-     *
-     * @param attivitaScelta l'attività che lo studente intende svolgere.
-     */
     public void eseguiAzione(Attivita attivitaScelta) {
         try {
             attivitaScelta.esegui(this.studente);
@@ -105,12 +82,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Gestisce la probabilità di occorrenza di un evento casuale.
-     * <p>
-     * Genera un numero random da 1 a 100.
-     * Se esce un numero minore o uguale a 15, innesca un imprevisto.
-     */
     private void gestisciEventiCasuali() {
         if (this.mazzoEventi == null || this.mazzoEventi.isEmpty()) {
             return;
@@ -134,16 +105,12 @@ public class GameController {
      * Gestisce l'avanzamento del tempo, i controlli di stato e lo svolgimento degli esami.
      */
     private void avanzaTurno() {
-
-        //Controllo immediato: l'azione appena eseguita ha causato il burnout?
         if (controllaGameOver()) {
             return;
         }
 
-        //Innesco degli Eventi Casuali
         gestisciEventiCasuali();
 
-        //Secondo controllo: un evento negativo ha causato il burnout?
         if (controllaGameOver()) {
             return;
         }
@@ -156,20 +123,16 @@ public class GameController {
             if (esitoPromozione) {
                 uiListener.mostraMessaggio("Esame Superato!", "Hai superato l'esame di " + esameAttuale.getNomeMateria() + "!");
                 archivioStorico.salvaEsameSuperato(esameAttuale);
-                // Preparazione per il prossimo esame
                 if (!this.esamiDaSostenere.isEmpty()) {
                     this.esameAttuale = this.esamiDaSostenere.remove(0);
-                    this.turniAllEsame = 20; // Resetta il timer
+                    this.turniAllEsame = 20;
                 } else {
-                    // Vittoria
                     uiListener.triggerVittoria(this.studente.getNome());
                     return;
                 }
             } else {
                 uiListener.mostraMessaggio("Bocciato...", "Hai fallito l'esame di " + esameAttuale.getNomeMateria() + ". Lo stress aumenta!");
-                this.turniAllEsame = 10; // Penalità di tempo per riprovare l'esame
-
-                //Terzo e ultimo controllo: la delusione della bocciatura ha causato il burnout?
+                this.turniAllEsame = 10;
                 if (controllaGameOver()) {
                     return;
                 }
@@ -179,10 +142,6 @@ public class GameController {
         aggiornaGrafica();
     }
 
-    /**
-     * Metodo helper privato per sincronizzare la vista con lo stato attuale del modello.
-     * Raccoglie i dati aggiornati dallo studente e li invia all'interfaccia grafica.
-     */
     private void aggiornaGrafica() {
         if (this.uiListener != null) {
             this.uiListener.aggiornaStatistiche(
@@ -195,9 +154,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Recupera lo storico degli esami salvati e mostra un riepilogo all'utente.
-     */
     public void mostraLibretto() {
         if (archivioStorico == null) return;
 

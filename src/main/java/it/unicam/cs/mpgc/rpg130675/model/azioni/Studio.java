@@ -27,25 +27,11 @@ public class Studio implements Attivita {
         return "Sui libri a preparare il prossimo esame. Costa energia e genera stress, ma la conoscenza aumenta.";
     }
 
-    /**
-     * Controlla se lo studente è fisicamente pronto per una sessione di studio.
-     * Per studiare non servono soldi, ma è strettamente necessario avere abbastanza energie fisiche.
-     *
-     * @param studente Lo studente che vuole mettersi sui libri.
-     * @return {@code true} se ha l'energia necessaria, {@code false} se è troppo stanco e deve prima riposare.
-     */
     @Override
     public boolean isEseguibile(Studente studente) {
         return studente.getEnergia() >= Math.abs(COSTO_ENERGIA);
     }
 
-    /**
-     * Applica le conseguenze della sessione di studio alle statistiche dello studente.
-     * Consuma energia, fa salire lo stress da prestazione, ma aumenta il punteggio di conoscenza vitale per l'esame.
-     *
-     * @param studente Lo studente che ha appena finito di studiare.
-     * @throws EccezioneInsufficienzaRisorse Se i requisiti per l'esecuzione non sono soddisfatti.
-     */
     @Override
     public void esegui(Studente studente) throws EccezioneInsufficienzaRisorse {
         if (isEseguibile(studente)) {

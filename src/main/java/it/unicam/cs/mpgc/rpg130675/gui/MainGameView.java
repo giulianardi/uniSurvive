@@ -74,14 +74,12 @@ public class MainGameView extends BorderPane {
     private void setupLayout() {
         this.setPadding(new Insets(15));
 
-        // Top Panel
         BorderPane topPanel = new BorderPane();
         topPanel.setLeft(turnLabel);
         topPanel.setRight(librettoButton);
         topPanel.setPadding(new Insets(0, 0, 15, 0));
         this.setTop(topPanel);
 
-        // Center Panel (Statistiche)
         VBox statsPanel = new VBox(10);
         statsPanel.getStyleClass().add("stats-panel");
         statsPanel.getChildren().addAll(
@@ -91,11 +89,9 @@ public class MainGameView extends BorderPane {
         this.setCenter(statsPanel);
         BorderPane.setMargin(statsPanel, new Insets(0, 0, 15, 0));
 
-        // Bottom Panel (Azioni)
         GridPane actionsPanel = new GridPane();
         actionsPanel.setHgap(10);
         actionsPanel.setVgap(10);
-        // Distribuzione equa dello spazio
         ColumnConstraints cc = new ColumnConstraints();
         cc.setPercentWidth(50);
         actionsPanel.getColumnConstraints().addAll(cc, cc);

@@ -6,13 +6,13 @@ import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 
 /**
  * Rappresenta un'azione generica che lo studente può compiere durante un turno di gioco.
- * <p>
+ *
  * E' possibile aggiungere nuove attività semplicemente creando nuove classi
  * che implementano questo contratto, senza dover modificare il motore di gioco principale.
- * </p>
  */
 public interface Attivita {
     String getNome();
+
     String getDescrizione();
 
     /**

@@ -9,24 +9,19 @@ import it.unicam.cs.mpgc.rpg130675.model.azioni.Lavoro;
 import it.unicam.cs.mpgc.rpg130675.model.azioni.Riposo;
 import it.unicam.cs.mpgc.rpg130675.model.azioni.Studio;
 
+import it.unicam.cs.mpgc.rpg130675.model.studente.Facolta;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 
-/**
- * Punto di ingresso dell'applicazione (Composition Root).
- * Si occupa di inizializzare l'interfaccia grafica JavaFX, caricare i fogli di stile (CSS)
- * e iniettare le dipendenze collegando Model, View e Controller.
- */
 public class Applicazione extends Application {
 
     private Stage primaryStage;
     private Scene mainScene;
 
     public static void main(String[] args) {
-        // Avvia il ciclo di vita nativo di JavaFX
         launch(args);
     }
 
@@ -35,16 +30,12 @@ public class Applicazione extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("UniSurvive");
 
-        // 1. Creazione della Vista Iniziale
         WelcomeView welcomeView = new WelcomeView();
 
-        // 2. Creazione della Scena (che conterrà tutte le nostre Viste)
         mainScene = new Scene(welcomeView, 600, 500);
 
-        // 3. Caricamento del CSS per separare la presentazione dalla logica (SRP)
         caricaStili(mainScene);
 
-        // 4. Setup del listener per il cambio schermata
         welcomeView.setWelcomeScreenListener((nome, facolta) -> avviaGioco(nome, facolta));
 
         this.primaryStage.setScene(mainScene);
@@ -61,23 +52,18 @@ public class Applicazione extends Application {
         }
     }
 
-    private void avviaGioco(String nome, it.unicam.cs.mpgc.rpg130675.model.studente.Facolta facolta) {
-        // Creazione componenti architetturali
+    private void avviaGioco(String nome, Facolta facolta) {
         MainGameView gameView = new MainGameView();
 
-        // NB: Ora GameUIListener riceve il primaryStage di JavaFX, non più il JFrame!
         GameUIListener uiListener = new GameUIListener(gameView, primaryStage);
         GameController controller = new GameController(uiListener);
 
-        // Inizializzazione della partita
         controller.avviaPartita(nome, facolta);
 
-        // Registrazione degli eventi provenienti dalla UI
         gameView.setMainGameListener(azioneScelta -> {
             System.out.println("Azione ricevuta dalla UI: " + azioneScelta);
 
             try {
-                // Sfruttiamo lo switch moderno (Java 14+) che è più leggibile e previene bug da 'break' mancanti
                 switch (azioneScelta) {
                     case STUDIA -> controller.eseguiAzione(new Studio());
                     case LAVORA -> controller.eseguiAzione(new Lavoro());
@@ -92,7 +78,6 @@ public class Applicazione extends Application {
             }
         });
 
-        // Cambio schermata fluido: aggiorniamo solo il "nodo radice" della scena
         mainScene.setRoot(gameView);
     }
 }

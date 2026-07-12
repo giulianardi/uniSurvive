@@ -23,6 +23,8 @@ import java.util.Map;
  */
 public class Creatore {
 
+    private final Map<Facolta, GeneratorePianoDiStudi> registroPianiDiStudi;
+
     /**
      * Crea un nuovo studente assegnandogli le statistiche base.
      *
@@ -34,21 +36,13 @@ public class Creatore {
         return new StudenteBase(nomeScelto, facoltaScelta);
     }
 
-    // Il "Registro" che associa la Facolta alla sua Strategia di creazione
-    private final Map<Facolta, GeneratorePianoDiStudi> registroPianiDiStudi;
-
     public Creatore() {
         this.registroPianiDiStudi = new HashMap<>();
 
-        // Configurazione iniziale (Fase di Bootstrapping)
         this.registroPianiDiStudi.put(Facolta.INFORMATICA_COMUNICAZIONE, new PianoInformaticaComunicazione());
         this.registroPianiDiStudi.put(Facolta.CHIMICA, new PianoChimica());
     }
 
-    /**
-     * Sfrutta il polimorfismo per ottenere la lista esami senza usare switch.
-     * Rispetta il principio Open/Closed a livello di logica di esecuzione.
-     */
     public List<Esame> creaListaEsame(Facolta facoltaScelta) {
         GeneratorePianoDiStudi generatore = registroPianiDiStudi.get(facoltaScelta);
 
