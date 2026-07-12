@@ -2,6 +2,8 @@ package it.unicam.cs.mpgc.rpg130675.persistence;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import it.unicam.cs.mpgc.rpg130675.model.carriera.EsameSalvato;
+import it.unicam.cs.mpgc.rpg130675.model.carriera.LibrettoUniversitario;
 import it.unicam.cs.mpgc.rpg130675.model.esame.Esame;
 
 import java.io.FileReader;

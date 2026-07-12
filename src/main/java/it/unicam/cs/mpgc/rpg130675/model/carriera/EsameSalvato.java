@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg130675.persistence;
+package it.unicam.cs.mpgc.rpg130675.model.carriera;
 
 /**
  * Rappresenta un esame superato, strutturato per facilitare la persistenza dei dati.

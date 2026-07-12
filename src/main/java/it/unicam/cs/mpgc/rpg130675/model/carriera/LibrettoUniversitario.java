@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg130675.persistence;
+package it.unicam.cs.mpgc.rpg130675.model.carriera;
 
 import java.util.ArrayList;
 import java.util.List;

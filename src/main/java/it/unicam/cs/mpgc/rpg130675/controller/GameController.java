@@ -5,15 +5,15 @@ import it.unicam.cs.mpgc.rpg130675.gui.GameUIListener;
 import it.unicam.cs.mpgc.rpg130675.model.azioni.Attivita;
 import it.unicam.cs.mpgc.rpg130675.model.esame.Esame;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.EventoCasuale;
+import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.MotoreEventi;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Facolta;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
-import it.unicam.cs.mpgc.rpg130675.model.studente.StudenteBase;
-import it.unicam.cs.mpgc.rpg130675.persistence.EsameSalvato;
 import it.unicam.cs.mpgc.rpg130675.persistence.JsonStoricoRepository;
-import it.unicam.cs.mpgc.rpg130675.persistence.LibrettoUniversitario;
+import it.unicam.cs.mpgc.rpg130675.model.carriera.LibrettoUniversitario;
 import it.unicam.cs.mpgc.rpg130675.persistence.StoricoRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -28,6 +28,7 @@ public class GameController {
     private List<EventoCasuale> mazzoEventi;
     private Esame esameAttuale;
     private int turniAllEsame;
+    private MotoreEventi motoreEventi;
 
     private Random generatoreCasuale;
 
@@ -83,21 +84,15 @@ public class GameController {
     }
 
     private void gestisciEventiCasuali() {
-        if (this.mazzoEventi == null || this.mazzoEventi.isEmpty()) {
-            return;
-        }
+        Optional<EventoCasuale> eventoMisterioso = motoreEventi.provaEstrazione(this.mazzoEventi);
 
-        int possibilita = generatoreCasuale.nextInt(100) + 1;
-        if (possibilita <= 15) {
-            int indicePescato = generatoreCasuale.nextInt(this.mazzoEventi.size());
-            EventoCasuale eventoMisterioso = this.mazzoEventi.get(indicePescato);
-            eventoMisterioso.innesca(this.studente);
+        eventoMisterioso.ifPresent(evento -> {
+            evento.innesca(this.studente);
 
             if (this.uiListener != null) {
-                uiListener.mostraMessaggio(eventoMisterioso.getTitolo(), eventoMisterioso.getDescrizione());
+                uiListener.mostraMessaggio(evento.getTitolo(), evento.getDescrizione());
             }
-        }
-
+        });
     }
 
 
@@ -118,28 +113,32 @@ public class GameController {
         this.turniAllEsame--;
 
         if (this.turniAllEsame <= 0 && esameAttuale != null) {
-            boolean esitoPromozione = esameAttuale.sostieni(this.studente);
-
-            if (esitoPromozione) {
-                uiListener.mostraMessaggio("Esame Superato!", "Hai superato l'esame di " + esameAttuale.getNomeMateria() + "!");
-                archivioStorico.salvaEsameSuperato(esameAttuale);
-                if (!this.esamiDaSostenere.isEmpty()) {
-                    this.esameAttuale = this.esamiDaSostenere.remove(0);
-                    this.turniAllEsame = 20;
-                } else {
-                    uiListener.triggerVittoria(this.studente.getNome());
-                    return;
-                }
-            } else {
+            gestisciSessioneEsame();
+        }else {
                 uiListener.mostraMessaggio("Bocciato...", "Hai fallito l'esame di " + esameAttuale.getNomeMateria() + ". Lo stress aumenta!");
                 this.turniAllEsame = 10;
                 if (controllaGameOver()) {
                     return;
                 }
             }
-        }
 
         aggiornaGrafica();
+    }
+
+    private void gestisciSessioneEsame() {
+        boolean esitoPromozione = esameAttuale.sostieni(this.studente);
+
+        if (esitoPromozione) {
+            uiListener.mostraMessaggio("Esame Superato!", "Hai superato l'esame di " + esameAttuale.getNomeMateria() + "!");
+            archivioStorico.salvaEsameSuperato(esameAttuale);
+            if (!this.esamiDaSostenere.isEmpty()) {
+                this.esameAttuale = this.esamiDaSostenere.remove(0);
+                this.turniAllEsame = 20;
+            } else {
+                uiListener.triggerVittoria(this.studente.getNome());
+                return;
+            }
+        }
     }
 
     private void aggiornaGrafica() {
@@ -159,23 +158,8 @@ public class GameController {
 
         LibrettoUniversitario libretto = archivioStorico.caricaStorico();
 
-        if (libretto == null || libretto.getEsamiSuperati().isEmpty()) {
-            if (uiListener != null) uiListener.mostraMessaggio("Libretto Vuoto", "Non hai ancora superato nessun esame nella tua carriera!");
-            return;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("--- ESAMI SUPERATI NELLA STORIA ---\n\n");
-        int cfuTotali = 0;
-
-        for (EsameSalvato esame : libretto.getEsamiSuperati()) {
-            sb.append("✔ ").append(esame.getNomeMateria()).append(" (").append(esame.getCfuGuadagnati()).append(" CFU)\n");
-            cfuTotali += esame.getCfuGuadagnati();
-        }
-        sb.append("\nTotale CFU accumulati globalmente: ").append(cfuTotali);
-
         if (uiListener != null) {
-            uiListener.mostraMessaggio("Libretto Universitario", sb.toString());
+            uiListener.mostraLibretto(libretto);
         }
     }
 }

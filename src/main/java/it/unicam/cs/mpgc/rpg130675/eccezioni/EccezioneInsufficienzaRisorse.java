@@ -6,9 +6,10 @@ package it.unicam.cs.mpgc.rpg130675.eccezioni;
  */
 public class EccezioneInsufficienzaRisorse extends Exception{
 
+    private static final String PREFISSO = "[RISORSE_INSUFFICIENTI]";
+
     public EccezioneInsufficienzaRisorse(String messaggio){
-        super(messaggio);
+
+        super(PREFISSO + " " + messaggio);
     }
-
-
 }
