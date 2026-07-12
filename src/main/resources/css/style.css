@@ -1,0 +1,83 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f4f4f4;
+}
+
+/* Stili per WelcomeView */
+.title-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.turn-label {
+    -fx-font-size: 28px; /* Dimensione aumentata */
+    -fx-font-weight: bold;
+    -fx-text-fill: #d35400; /* Un colore arancione scuro per dare il senso di urgenza */
+}
+
+/* Stili per MainGameView */
+.stats-panel {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-background-color: white;
+}
+
+.action-button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.action-button-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.action-button-subtitle {
+    -fx-font-size: 10px;
+    -fx-text-fill: #f1f2f6;
+}
+
+.btn-study { -fx-background-color: #3498db; }
+.btn-study:hover { -fx-background-color: #2980b9; }
+
+.btn-work { -fx-background-color: #e74c3c; }
+.btn-work:hover { -fx-background-color: #c0392b; }
+
+.btn-party { -fx-background-color: #9b59b6; }
+.btn-party:hover { -fx-background-color: #8e44ad; }
+
+.btn-sleep { -fx-background-color: #2ecc71; }
+.btn-sleep:hover { -fx-background-color: #27ae60; }
+
+.btn-libretto {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+.btn-libretto:hover { -fx-background-color: #d68910; }
+
+/* Stili per GameOverView */
+.game-over-root {
+    -fx-background-color: #282828;
+}
+
+.game-over-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff0000;
+}
+
+.game-over-message {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+}
