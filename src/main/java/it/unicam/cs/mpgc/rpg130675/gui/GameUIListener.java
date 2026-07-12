@@ -7,7 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-public class GameUIListener {
+public class GameUIListener implements GameOutputListener{
+
     private final MainGameView gameView;
     private final Stage stage;
 
@@ -20,15 +21,16 @@ public class GameUIListener {
         gameView.updateStats(turno, conoscenza, energia, stress, denaro);
     }
 
+    @Override
     public void mostraMessaggio(String titolo, String messaggio) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Evento Casuale");
         alert.setHeaderText(titolo);
         alert.setContentText(messaggio);
-
         alert.showAndWait();
     }
 
+    @Override
     public void mostraLibretto(LibrettoUniversitario libretto) {
         if (libretto == null || libretto.getEsamiSuperati().isEmpty()) {
             mostraMessaggio("Libretto Vuoto", "Non hai ancora superato nessun esame nella tua carriera!");
@@ -52,12 +54,13 @@ public class GameUIListener {
         alert.showAndWait();
     }
 
+    @Override
     public void triggerGameOver(String nomeStudente) {
         GameOverView gameOverView = new GameOverView(nomeStudente);
-        Scene currentScene = stage.getScene();
-        currentScene.setRoot(gameOverView);
+        stage.getScene().setRoot(gameOverView);
     }
 
+    @Override
     public void triggerVittoria(String nomeStudente) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("VITTORIA - LAUREA");

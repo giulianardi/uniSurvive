@@ -31,10 +31,6 @@ dependencies {
     implementation("com.formdev:flatlaf-intellij-themes:3.4")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
-
 application {
     mainClass.set("it.unicam.cs.mpgc.rpg130675.app.Applicazione")
 }

@@ -1,15 +1,16 @@
 package it.unicam.cs.mpgc.rpg130675.controller;
 
 import it.unicam.cs.mpgc.rpg130675.eccezioni.EccezioneInsufficienzaRisorse;
+import it.unicam.cs.mpgc.rpg130675.gui.GameOutputListener;
 import it.unicam.cs.mpgc.rpg130675.gui.GameUIListener;
 import it.unicam.cs.mpgc.rpg130675.model.azioni.Attivita;
+import it.unicam.cs.mpgc.rpg130675.model.carriera.LibrettoUniversitario;
 import it.unicam.cs.mpgc.rpg130675.model.esame.Esame;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.EventoCasuale;
 import it.unicam.cs.mpgc.rpg130675.model.eventiCasuali.MotoreEventi;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Facolta;
 import it.unicam.cs.mpgc.rpg130675.model.studente.Studente;
 import it.unicam.cs.mpgc.rpg130675.persistence.JsonStoricoRepository;
-import it.unicam.cs.mpgc.rpg130675.model.carriera.LibrettoUniversitario;
 import it.unicam.cs.mpgc.rpg130675.persistence.StoricoRepository;
 
 import java.util.List;
@@ -34,9 +35,9 @@ public class GameController {
 
     private StoricoRepository archivioStorico;
 
-    private GameUIListener uiListener;
+    private GameOutputListener uiListener;
 
-    public GameController(GameUIListener uiListener) {
+    public GameController(GameOutputListener uiListener) {
         this.uiListener = uiListener;
     }
 
@@ -114,13 +115,10 @@ public class GameController {
 
         if (this.turniAllEsame <= 0 && esameAttuale != null) {
             gestisciSessioneEsame();
-        }else {
-                uiListener.mostraMessaggio("Bocciato...", "Hai fallito l'esame di " + esameAttuale.getNomeMateria() + ". Lo stress aumenta!");
-                this.turniAllEsame = 10;
-                if (controllaGameOver()) {
-                    return;
-                }
+            if (controllaGameOver()) {
+                return;
             }
+        }
 
         aggiornaGrafica();
     }
@@ -138,6 +136,9 @@ public class GameController {
                 uiListener.triggerVittoria(this.studente.getNome());
                 return;
             }
+        } else {
+            uiListener.mostraMessaggio("Bocciato...", "Hai fallito l'esame di " + esameAttuale.getNomeMateria() + ". Lo stress aumenta!");
+            this.turniAllEsame = 10;
         }
     }
 

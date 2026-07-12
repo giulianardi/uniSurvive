@@ -18,10 +18,6 @@ public enum Facolta {
         return nomeDescrittivo;
     }
 
-    /**
-     * Sovrascriviamo il toString() affinché componenti UI come la JComboBox
-     * mostrino direttamente il nome descrittivo al posto dell'identificatore dell'Enum.
-     */
     @Override
     public String toString() {
         return this.nomeDescrittivo;
