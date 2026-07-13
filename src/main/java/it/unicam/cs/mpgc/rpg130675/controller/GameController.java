@@ -31,8 +31,6 @@ public class GameController {
     private int turniAllEsame;
     private MotoreEventi motoreEventi;
 
-    private Random generatoreCasuale;
-
     private StoricoRepository archivioStorico;
 
     private GameOutputListener uiListener;
@@ -59,7 +57,6 @@ public class GameController {
         this.mazzoEventi = creatore.creaListaEventi();
 
         this.turniAllEsame = 20;
-        this.generatoreCasuale = new Random();
         this.motoreEventi = new MotoreEventi();
 
         this.archivioStorico = new JsonStoricoRepository();
